@@ -3,12 +3,12 @@
 
 import pandas as pd
 import json
-import time
-
-timestr = time.strftime("%Y%m%d")
 
 # Get data
 data = pd.read_csv('https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/vaccinations.csv')
+
+# Fill latest NaN values 
+new = data.fillna(method='ffill')
 
 # Get last day of data for each country
 def getData(dataset):
@@ -19,13 +19,16 @@ def getData(dataset):
         countries.append(last_vac)
     return countries
 
-parsedData = getData(data)
+parsedData = getData(new)
 
 # Convert to dataframe 
 exportData = pd.DataFrame(parsedData)
 
+# Export as JSON
+dataDict = exportData.to_dict('records')
+
 # Save as a json file
-with open('data/last_vac.json', 'w') as f:
-    json.dump(exportData.to_json(orient='records'), f)
+with open('data/last_vac2.json', 'w') as f:
+    json.dump(dataDict, f)
 
 
