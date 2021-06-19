@@ -2,7 +2,7 @@ name: Scrape  # The name of your Workflow
 
 on:
   schedule:
-    - cron: '10 * * * *'
+    - cron: '0 21 * * *'
     
 jobs:
   scrape-latest:
