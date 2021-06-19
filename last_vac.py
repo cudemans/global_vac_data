@@ -25,7 +25,7 @@ parsedData = getData(data)
 exportData = pd.DataFrame(parsedData)
 
 # Save as a json file
-with open(f'data/last_vac_{timestr}.json', 'w') as f:
+with open('data/last_vac.json', 'w') as f:
     json.dump(exportData.to_json(orient='records'), f)
 
 
